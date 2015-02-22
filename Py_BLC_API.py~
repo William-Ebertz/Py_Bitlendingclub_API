@@ -1,0 +1,124 @@
+import requests
+import json
+
+
+URL = "https://api.bitlendingclub.com"
+
+#paste token here
+token = ""
+
+def list_loans(limit = 10, offset = 0, country = None, loanType = None, term = None, frequency = None, status = None, trusted = None, social = None, amountFrom = None, amountTo = None, reputationFrom = None, reputationTo = None, timeLeftFrom = None, timeLeftTo = None, denomination = None, paymentStatus = None, fundedFrom = None, fundedTo = None, ratioFrom = None, ratioTo = None, listingDateFrom = None, listingDateTo = None, expirationDateFrom = None, expirationDateTo = None, repaidDateFrom = None, repaidDateTo = None, dueDateFrom = None, dueDateTo = None, votesFrom = None, votesTo = None, salary = None):
+	
+	func_params = locals()
+	params = {}
+	header = {}
+	header['Accept'] = 'application/vnd.blc.v1+json'
+	header['Cache-Control'] = 'no-cache'
+	
+	r = requests.get(URL + '/api/loans', headers = header, params = func_params)
+	resp = r.json()
+	
+	return resp
+	
+def loan_details(loan_id):
+	func_params = locals()
+	header = {}
+	header['Accept'] = 'application/vnd.blc.v1+json'
+	header['Cache-Control'] = 'no-cache'
+	
+	r = requests.get(URL + '/api/loan/' + loan_id, headers = header, params = 			func_params)
+	resp = r.json()
+	
+	return resp
+
+def repay_loan(loan_id):
+	func_params = locals()
+	header = {}
+	header['Accept'] = 'application/vnd.blc.v1+json'
+	header['Cache-Control'] = 'no-cache'
+	header['Authorization'] = 'Bearer ' + token
+	header['Content-Type'] = 'application/x-www-form-urlenclosed'
+	
+	r = requests.post(URL + '/api/loan/' + loan_id + '/repay', headers = header, 			params = func_params)
+	resp = r.json()
+	
+	return resp
+	
+def amortization_schedule(loan_id):
+	func_params = locals()
+	header = {}
+	header['Accept'] = 'application/vnd.blc.v1+json'
+	header['Cache-Control'] = 'no-cache'
+	header['Authorization'] = 'Bearer ' + token
+	header['Content-Type'] = 'application/x-www-form-urlenclosed'
+	
+	r = requests.get(URL + '/api/loan/' + loan_id + '/schedule', headers = header, 			params = func_params)
+	resp = r.json()
+	
+	return resp
+	
+def list_investments(loan_id):
+	func_params = locals()
+	header = {}
+	header['Accept'] = 'application/vnd.blc.v1+json'
+	header['Cache-Control'] = 'no-cache'
+	header['Content-Type'] = 'application/x-www-form-urlenclosed'
+	
+	r = requests.get(URL + '/api/investments/' + loan_id, headers = header,
+	params = func_params)
+	resp = r.json()
+	
+	return resp
+	
+def investment_details(investment_id):
+	func_params = locals()
+	header = {}
+	header['Accept'] = 'application/vnd.blc.v1+json'
+	header['Cache-Control'] = 'no-cache'
+	
+	r = requests.get(URL + '/api/investment/' + investment_id, headers = header, 			params = func_params)
+	resp = r.json()
+	
+	return resp
+	
+def create_investment(loan_id, amount, rate):
+	func_params = locals()
+	header = {}
+	header['Accept'] = 'application/vnd.blc.v1+json'
+	header['Cache-Control'] = 'no-cache'
+	header['Authorization'] = 'Bearer ' + token
+	header['Content-Type'] = 'application/x-www-form-urlenclosed'
+	
+	r = requests.post(URL + '/api/investment/', headers = header, 
+		params = func_params)
+	resp = r.json()
+	
+	return resp
+	
+def modify_investment(investment_id, amount, rate, loan_id = None):
+	func_params = locals()
+	header = {}
+	header['Accept'] = 'application/vnd.blc.v1+json'
+	header['Cache-Control'] = 'no-cache'
+	header['Authorization'] = 'Bearer ' + token
+	header['Content-Type'] = 'application/x-www-form-urlenclosed'
+	
+	r = requests.put(URL + '/api/investment/' + investment_id, headers = header,
+		params = func_params)
+	resp = r.json()
+	
+	return resp
+	
+def delete_investment(investment_id, loan_id = None):
+	func_params = locals()
+	header = {}
+	header['Accept'] = 'application/vnd.blc.v1+json'
+	header['Cache-Control'] = 'no-cache'
+	header['Authorization'] = 'Bearer ' + token
+	header['Content-Type'] = 'application/x-www-form-urlenclosed'
+	
+	r = requests.delete(URL + '/api/investment/' + investment_id, headers = header,
+		params = func_params)
+	resp = r.json()
+	
+	return resp
