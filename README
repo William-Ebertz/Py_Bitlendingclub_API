@@ -1,0 +1,6 @@
+This module contains a set of Python wrapper functions which implement the BitLendingClub API.
+
+To use, simply paste your JWT token in the location specified in the code.
+
+Maintainer: William Ebertz <williamqbert@gmail.com>
+Live Long, and Prosper!
